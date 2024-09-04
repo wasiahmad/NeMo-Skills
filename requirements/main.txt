@@ -12,25 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cluster: slurm
-account: ???
-partition: ???
-job_name_prefix: "nemo_skills"
-extra_sbatch_args:
-  - --exclusive
-  - --mem=0
-extra_sandbox_args:
-  - --overlap
-
-containers:
-  tensorrt_llm: igitman/nemo-skills-trtllm:0.3.2
-  vllm: igitman/nemo-skills-vllm:0.3.1
-  nemo: igitman/nemo-skills-sft:0.3.0
-  sandbox: igitman/nemo-skills-sandbox:0.3.0
-
-# can use this section to set timeouts for different partitions
-# this will be used as a slurm parameter + to signal SFT job to finish
-# before the timeout to have time to save the last checkpoint
-# timeouts:
-#   partition_name1: 06:00:00
-#   partition_name2: 01:30:00
+backoff
+bs4
+evalplus @ git+https://github.com/evalplus/evalplus@c91370f
+huggingface_hub
+hydra-core
+numpy
+openai
+pyyaml
+rank_bm25
+requests
+scikit-learn
+sympy
+tqdm

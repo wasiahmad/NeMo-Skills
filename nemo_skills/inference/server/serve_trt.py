@@ -42,7 +42,9 @@ def remove_stop_tokens(text: str, stop_phrases: List[str]) -> str:
     """Removes everything after the last stop token."""
     if not stop_phrases:
         return text
-    return re.split("|".join([sp.replace('|', '\\|') for sp in stop_phrases]), text, maxsplit=1)[0]
+    # Escape all special characters in stop phrases
+    escaped_stop_phrases = [re.escape(sp) for sp in stop_phrases]
+    return re.split("|".join(escaped_stop_phrases), text, maxsplit=1)[0]
 
 
 class CustomSentencePieceTokenizer(T5Tokenizer):
@@ -413,6 +415,7 @@ def _stream(
             output_log_probs,
             output_cum_log_probs,
             batch_input_ids,
+            batch_input_ids_list,
             streaming,
             request_ids,
             return_all_generated_tokens,
@@ -462,9 +465,8 @@ class TensorRTLLM:
             enable_chunked_context=True,
             kv_cache_enable_block_reuse=True,
         )
-        # setting to the default max batch size in trtllm.
         # might need to adjust in the future
-        self.executor = ThreadPoolExecutor(max_workers=256)
+        self.executor = ThreadPoolExecutor(max_workers=1024)
         self.requests = {}  # id to future
 
     def get_output(

@@ -80,5 +80,6 @@ GRADING_MAP = {
 EXTRA_GENERATION_ARGS = {
     # some benchmarks require specific extra arguments, which are defined here
     'ifeval': '++generation_key=response',
+    'mhpp': '++generation_key=response',
 }
 # ------------------------------------------------------------------------------

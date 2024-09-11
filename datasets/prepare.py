@@ -16,11 +16,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-datasets = [d.name for d in (Path(__file__).parents[0]).glob("*") if d.is_dir() and d.name != "__pycache__"]
+datasets = [d.name for d in (Path(__file__).parents[0]).glob(
+    "*") if d.is_dir() and d.name != "__pycache__"]
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Prepare all datasets')
-    parser.add_argument('datasets', default=[], nargs="*", help='Can specify a subset here')
+    parser.add_argument('datasets', default=[], nargs="*",
+                        help='Can specify a subset here')
     args = parser.parse_args()
 
     if not args.datasets:
@@ -29,4 +31,5 @@ if __name__ == '__main__':
     datasets_folder = Path(__file__).absolute().parents[0]
     for dataset in args.datasets:
         print(f"Preparing {dataset}")
-        subprocess.run(f"{sys.executable} {datasets_folder / dataset / 'prepare.py'}", shell=True, check=True)
+        subprocess.run(
+            f"{sys.executable} {datasets_folder / dataset / 'prepare.py'}", shell=True, check=True)

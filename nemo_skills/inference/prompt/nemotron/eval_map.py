@@ -27,6 +27,7 @@ EVAL_MAP = {
         # Coding
         'human-eval': 'nemotron/codegen',
         'mbpp': 'nemotron/codegen',
+        'mhpp': 'nemotron/codegen',
         # Others
         'mmlu': 'nemotron/mmlu',
         'ifeval': 'nemotron/sft',
